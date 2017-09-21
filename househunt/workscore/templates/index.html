@@ -18,6 +18,9 @@
             .distance {
                 color: grey;
             }
+            img {
+                width: 100%;
+            }
         </style>
         <meta charset="utf-8">
 
@@ -26,8 +29,8 @@
 
     <body>
         <div class="pure-g">
-            <div class="pure-u-1-8"></div>
-            <div class="pure-u-3-4">
+            <div class="pure-u-1-24"></div>
+            <div class="pure-u-1-2">
                 <h2>{{data.origin}}</h2>
                 <table class="pure-table">
                     <thead>
@@ -51,9 +54,11 @@
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
+            <div class="pure-u-5-12">
                 <p><img src="{{map_url}}"></p>
             </div>
-            <div class="pure-u-1-8"></div>
+            <div class="pure-u-1-24"></div>
         </div>
     </body>
 </html>
