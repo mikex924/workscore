@@ -8,12 +8,19 @@ import pytz
 def index(request):
     origin = "288 San Jose Ave, SF"
     destinations = []
-    destinations.append(("24th St Mission Station", "2800 Mission St, San Francisco, CA 94110"))
+    destinations.append(("Powell Station", "899 Market St, San Francisco, CA 94103"))
+    destinations.append(("Civic Center Station", "1150 Market St, San Francisco, CA 94102"))
     destinations.append(("16th St Mission Station", "2000 Mission St, San Francisco, CA 94110"))
+    destinations.append(("24th St Mission Station", "2800 Mission St, San Francisco, CA 94110"))
+    destinations.append(("Glen Park Station", "2901 Diamond St, San Francisco, CA 94131"))
     destinations.append(("STRATIM", "489 Clementina Street, Floor 2, San Francisco, CA 94103"))
-    destinations.append(("mLab", "660 York St, San Francisco, CA 94110"))
+    destinations.append(("MLab", "660 York St, San Francisco, CA 94110"))
     destinations.append(("Twitter", "1355 Market St, San Francisco, CA 94103"))
     destinations.append(("Reddit", "420 Taylor St, San Francisco, CA 94102"))
+    destinations.append(("Airbnb", "888 Brannan St, San Francisco, CA 94103"))
+    destinations.append(("Lyft", "201 3rd St, San Francisco, CA 94103"))
+    destinations.append(("Dropbox", "333 Brannan St, San Francisco, CA 94107"))
+    destinations.append(("Salesforce", "50 Fremont Center, 50 Fremont St, San Francisco, CA 94105"))
     walk_data = TravelView(origin, destinations, "walking").get()
     bike_data = TravelView(origin, destinations, "bicycling").get()
     transit_data = TravelView(origin, destinations, "transit").get()
@@ -22,16 +29,10 @@ def index(request):
     return render(request, "index.html", context={"data": merged_data, "map_url": map_url})
 
 def get_map_url(walk_data):
-    addresses = []
-    addresses.append(walk_data["origin"])
-    for dest in walk_data["destinations"]:
-        addresses.append(dest["address"])
     markers = []
-    for i in range(0, len(addresses)):
-        if i == 0:
-            markers.append("color:red|{}".format(addresses[i]))
-        else:
-            markers.append("color:purple|label:{}|{}".format(i, addresses[i]))
+    markers.append("color:red|{}".format(walk_data["origin"]))
+    for dest in walk_data["destinations"]:
+        markers.append("color:purple|label:{}|{}".format(dest["name"][0], dest["address"]))
     params = {"size": "640x640", "markers": markers}
     url = "https://maps.googleapis.com/maps/api/staticmap?{}".format(urllib.parse.urlencode(params, True))
     print(url)
@@ -46,7 +47,6 @@ def merge_data(walk_data, bike_data, transit_data):
         w_data = walk_data["destinations"][i]
         b_data = bike_data["destinations"][i]
         t_data = transit_data["destinations"][i]
-        destination["index"] = i + 1
         destination["name"] = w_data["name"]
         destination["address"] = w_data["address"]
         destination["walking"] = {}

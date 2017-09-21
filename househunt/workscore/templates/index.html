@@ -35,7 +35,6 @@
                 <table class="pure-table">
                     <thead>
                         <tr>
-                            <th></th>
                             <th><i class="material-icons">place</i></th>
                             <th><i class="material-icons">directions_walk</i></th>
                             <th><i class="material-icons">directions_bike</i></th>
@@ -45,7 +44,6 @@
                     <tbody>
                         {% for dest in data.destinations %}
                         <tr>
-                            <td>{{dest.index}}</td>
                             <td>{{dest.name}}</td>
                             <td><font class="{{dest.walking.class}}">{{dest.walking.duration}}</font><font class="distance"> / {{dest.walking.distance}}</font></td>
                             <td><font class="{{dest.bicycling.class}}">{{dest.bicycling.duration}}</font><font class="distance"> / {{dest.bicycling.distance}}</font></td>
