@@ -1,0 +1,58 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/base-min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <style>
+            .time-1 {
+                color: forestgreen;
+            }
+            .time-2 {
+                color: darkorange;
+            }
+            .time-3 {
+                color: crimson;
+            }
+            .distance {
+                color: grey;
+            }
+        </style>
+        <meta charset="utf-8">
+
+        <title>Work Score</title>
+    </head>
+
+    <body>
+        <div class="pure-g">
+            <div class="pure-u-1-8"></div>
+            <div class="pure-u-3-4">
+                <h2>{{data.origin}}</h2>
+                <table class="pure-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th><i class="material-icons">directions_walk</i></th>
+                            <th><i class="material-icons">directions_bike</i></th>
+                            <th><i class="material-icons">directions_bus</i></th>
+                            <th><i class="material-icons">place</i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dest in data.destinations %}
+                        <tr>
+                            <td>{{dest.name}}</td>
+                            <td><font class="time-1">{{dest.walking.duration}}</font><font class="distance"> / {{dest.walking.distance}}</font></td>
+                            <td><font class="time-2">{{dest.bicycling.duration}}</font><font class="distance"> / {{dest.bicycling.distance}}</font></td>
+                            <td><font class="time-3">{{dest.transit.duration}}</font><font class="distance"> / {{dest.transit.distance}}</font></td>
+                            <td>{{dest.address}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="pure-u-1-8"></div>
+        </div>
+    </body>
+</html>
