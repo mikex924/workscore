@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import urllib
 import json
 import datetime
+import pytz
 
 def index(request):
     origin = "288 San Jose Ave, SF"
@@ -95,8 +96,8 @@ class TravelView():
         return "|".join(addresses)
 
     def next_tuesday_morning(self):
-        d = datetime.datetime.now()
-        while d.weekday() != 1:
-            d += datetime.timedelta(1)
-        d = d.replace(hour=9, minute=0, second=0, microsecond=0)
-        return int(d.strftime('%s'))
+        date = datetime.date.today()
+        while date.weekday() != 1:
+            date += datetime.timedelta(1)
+        time = datetime.datetime(date.year, date.month, date.day, 16, tzinfo=pytz.utc)
+        return int(time.strftime('%s'))
