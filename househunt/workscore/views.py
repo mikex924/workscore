@@ -6,7 +6,10 @@ import datetime
 import pytz
 
 def index(request):
-    origin = "288 San Jose Ave, SF"
+    return render(request, "index.html")
+
+def score(request):
+    origin = request.GET["addr"]
     destinations = []
     destinations.append(("Powell Station", "899 Market St, San Francisco, CA 94103"))
     destinations.append(("Civic Center Station", "1150 Market St, San Francisco, CA 94102"))
@@ -26,7 +29,7 @@ def index(request):
     transit_data = TravelView(origin, destinations, "transit").get()
     merged_data = merge_data(walk_data, bike_data, transit_data)
     map_url = get_map_url(walk_data)
-    return render(request, "index.html", context={"data": merged_data, "map_url": map_url})
+    return render(request, "score.html", context={"data": merged_data, "map_url": map_url})
 
 def get_map_url(walk_data):
     markers = []
