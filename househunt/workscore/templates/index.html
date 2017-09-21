@@ -33,24 +33,25 @@
                     <thead>
                         <tr>
                             <th></th>
+                            <th><i class="material-icons">place</i></th>
                             <th><i class="material-icons">directions_walk</i></th>
                             <th><i class="material-icons">directions_bike</i></th>
                             <th><i class="material-icons">directions_bus</i></th>
-                            <th><i class="material-icons">place</i></th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for dest in data.destinations %}
                         <tr>
+                            <td>{{dest.index}}</td>
                             <td>{{dest.name}}</td>
                             <td><font class="{{dest.walking.class}}">{{dest.walking.duration}}</font><font class="distance"> / {{dest.walking.distance}}</font></td>
                             <td><font class="{{dest.bicycling.class}}">{{dest.bicycling.duration}}</font><font class="distance"> / {{dest.bicycling.distance}}</font></td>
                             <td><font class="{{dest.transit.class}}">{{dest.transit.duration}}</font><font class="distance"> / {{dest.transit.distance}}</font></td>
-                            <td>{{dest.address}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+                <p><img src="{{map_url}}"></p>
             </div>
             <div class="pure-u-1-8"></div>
         </div>

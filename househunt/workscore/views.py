@@ -18,7 +18,24 @@ def index(request):
     bike_data = TravelView(origin, destinations, "bicycling").get()
     transit_data = TravelView(origin, destinations, "transit").get()
     merged_data = merge_data(walk_data, bike_data, transit_data)
-    return render(request, "index.html", context={"data": merged_data})
+    map_url = get_map_url(walk_data)
+    return render(request, "index.html", context={"data": merged_data, "map_url": map_url})
+
+def get_map_url(walk_data):
+    addresses = []
+    addresses.append(walk_data["origin"])
+    for dest in walk_data["destinations"]:
+        addresses.append(dest["address"])
+    markers = []
+    for i in range(0, len(addresses)):
+        if i == 0:
+            markers.append("color:red|{}".format(addresses[i]))
+        else:
+            markers.append("color:purple|label:{}|{}".format(i, addresses[i]))
+    params = {"size": "640x640", "markers": markers}
+    url = "https://maps.googleapis.com/maps/api/staticmap?{}".format(urllib.parse.urlencode(params, True))
+    print(url)
+    return url
 
 def merge_data(walk_data, bike_data, transit_data):
     output = {}
@@ -29,6 +46,7 @@ def merge_data(walk_data, bike_data, transit_data):
         w_data = walk_data["destinations"][i]
         b_data = bike_data["destinations"][i]
         t_data = transit_data["destinations"][i]
+        destination["index"] = i + 1
         destination["name"] = w_data["name"]
         destination["address"] = w_data["address"]
         destination["walking"] = {}
