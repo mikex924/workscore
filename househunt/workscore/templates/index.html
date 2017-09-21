@@ -43,9 +43,9 @@
                         {% for dest in data.destinations %}
                         <tr>
                             <td>{{dest.name}}</td>
-                            <td><font class="time-1">{{dest.walking.duration}}</font><font class="distance"> / {{dest.walking.distance}}</font></td>
-                            <td><font class="time-2">{{dest.bicycling.duration}}</font><font class="distance"> / {{dest.bicycling.distance}}</font></td>
-                            <td><font class="time-3">{{dest.transit.duration}}</font><font class="distance"> / {{dest.transit.distance}}</font></td>
+                            <td><font class="{{dest.walking.class}}">{{dest.walking.duration}}</font><font class="distance"> / {{dest.walking.distance}}</font></td>
+                            <td><font class="{{dest.bicycling.class}}">{{dest.bicycling.duration}}</font><font class="distance"> / {{dest.bicycling.distance}}</font></td>
+                            <td><font class="{{dest.transit.class}}">{{dest.transit.duration}}</font><font class="distance"> / {{dest.transit.distance}}</font></td>
                             <td>{{dest.address}}</td>
                         </tr>
                         {% endfor %}

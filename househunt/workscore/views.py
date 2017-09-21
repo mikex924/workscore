@@ -33,14 +33,26 @@ def merge_data(walk_data, bike_data, transit_data):
         destination["walking"] = {}
         destination["walking"]["distance"] = w_data["distance"]
         destination["walking"]["duration"] = w_data["duration"]
+        destination["walking"]["class"] = get_duration_class(w_data["duration_sec"], 15, 25)
         destination["bicycling"] = {}
         destination["bicycling"]["distance"] = b_data["distance"]
         destination["bicycling"]["duration"] = b_data["duration"]
+        destination["bicycling"]["class"] = get_duration_class(b_data["duration_sec"], 20, 30)
         destination["transit"] = {}
         destination["transit"]["distance"] = t_data["distance"]
         destination["transit"]["duration"] = t_data["duration"]
+        destination["transit"]["class"] = get_duration_class(t_data["duration_sec"], 25, 35)
         output["destinations"].append(destination)
     return output
+
+def get_duration_class(duration_sec, thresh_1, thresh_2):
+    minute = duration_sec / 60.0
+    if minute <= thresh_1:
+        return "time-1"
+    elif minute <= thresh_2:
+        return "time-2"
+    else:
+        return "time-3"
 
 class TravelView():
 
@@ -74,6 +86,7 @@ class TravelView():
             dest["address"] = addresses[i]
             dest["distance"] = data["rows"][0]["elements"][i]["distance"]["text"]
             dest["duration"] = data["rows"][0]["elements"][i]["duration"]["text"]
+            dest["duration_sec"] = data["rows"][0]["elements"][i]["duration"]["value"]
             output["destinations"].append(dest)
         return output
 
