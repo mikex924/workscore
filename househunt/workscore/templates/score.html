@@ -4,6 +4,7 @@
     <head>
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/base-min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <style>
             .time-1 {
@@ -21,6 +22,15 @@
             img {
                 width: 100%;
             }
+            input {
+                width: 320px;
+            }
+            #search {
+                margin-top: 1em;
+            }
+            .bar {
+                background-color: #333333;
+            }
         </style>
         <meta charset="utf-8">
 
@@ -28,9 +38,18 @@
     </head>
 
     <body>
+        <div class="pure-menu pure-menu-horizontal bar">
+            <a href="/" class="pure-menu-heading pure-menu-link">Work Score</a>
+        </div>
         <div class="pure-g">
             <div class="pure-u-1-24"></div>
             <div class="pure-u-1-2">
+                <form class="pure-form" id="search" action="/score" method="get">
+                    <fieldset>
+                        <input type="text" placeholder="Type an address" name="addr">
+                        <button type="submit" class="pure-button pure-button-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </fieldset>
+                </form>
                 <h2>{{data.origin}}</h2>
                 <table class="pure-table">
                     <thead>
